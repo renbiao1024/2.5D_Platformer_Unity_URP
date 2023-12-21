@@ -4,14 +4,17 @@ using UnityEngine;
 
 namespace Platformer_Game
 {
-    public class CharacterController : MonoBehaviour
+    public enum TransitionParameter
+    {
+        Move,
+    }
+    public class CharacterControl : MonoBehaviour
     {
         public float speed;
         [SerializeField] Material material;
-        public enum TransitionParameter
-        {
-            Move,
-        }
+        public bool MoveRight;
+        public bool MoveLeft;
+
 
         public void ChangeMaterial()
         {

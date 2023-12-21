@@ -13,7 +13,7 @@ namespace Platformer_Game
         {
             DrawDefaultInspector();
 
-            CharacterController controller = (CharacterController)target;
+            CharacterControl controller = (CharacterControl)target;
             if(GUILayout.Button("Change Material"))
             {
                 controller.ChangeMaterial();
