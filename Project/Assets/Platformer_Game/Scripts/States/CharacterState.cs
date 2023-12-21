@@ -20,16 +20,32 @@ namespace Platformer_Game
             return characterControl;
         }
 
-        public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            UpdateAll(this, animator);
+            foreach (var stateData in ListAbilityData)
+            {
+                stateData.OnEnter(this, animator, stateInfo);
+            }
         }
 
-        public void UpdateAll(CharacterState characterState, Animator animator) 
+        public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            UpdateAll(this, animator, stateInfo);
+        }
+
+        public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            foreach (var stateData in ListAbilityData)
+            {
+                stateData.OnExit(this, animator, stateInfo);
+            }
+        }
+
+        public void UpdateAll(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo) 
         { 
             foreach(var stateData in ListAbilityData)
             {
-                stateData.UpdateAbility(characterState, animator);
+                stateData.UpdateAbility(characterState, animator, stateInfo);
             }
         }
     }
