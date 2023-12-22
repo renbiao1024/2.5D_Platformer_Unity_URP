@@ -7,15 +7,15 @@ namespace Platformer_Game
     [CreateAssetMenu(fileName = "New State", menuName = "Platformer_Game/AbilityData/Idle")]
     public class Idle : StateData
     {
+        CharacterControl control;
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-
+            control = characterState.GetCharacterControl(animator);
+            animator.SetBool(TransitionParameter.Jump.ToString(), false);
         }
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            var control = characterState.GetCharacterControl(animator);
-
             if(control.Jump)
             {
                 animator.SetBool(TransitionParameter.Jump.ToString(), true);
