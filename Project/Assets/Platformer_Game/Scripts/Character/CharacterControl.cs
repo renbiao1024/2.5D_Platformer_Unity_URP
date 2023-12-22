@@ -14,10 +14,15 @@ namespace Platformer_Game
     public class CharacterControl : MonoBehaviour
     {
         [SerializeField] Material material;
+        [SerializeField] Animator animator;
         public bool MoveRight;
         public bool MoveLeft;
         public bool Jump;
         private Rigidbody rb;
+
+        public float GravityMultiplier;
+        public float PullMultiplier;
+
         public Rigidbody RB
         {
             get
@@ -30,8 +35,51 @@ namespace Platformer_Game
         [HideInInspector] public List<GameObject> bottomSphereLst = new List<GameObject>();
         [HideInInspector] public List<GameObject> frontSphereLst = new List<GameObject>();
         [SerializeField] GameObject colliderEdgePrefab;
+        [HideInInspector] public List<Collider> RagdollLst = new List<Collider>();
 
         void Awake()
+        {
+            InitRagdoll();
+            InitEdgeSphere();
+
+        }
+
+        void InitRagdoll()
+        {
+            Collider[] colliders = gameObject.GetComponentsInChildren<Collider>();
+            foreach(var c in colliders)
+            {
+                if(c.gameObject != gameObject)
+                {
+                    c.isTrigger = true;
+                    RagdollLst.Add(c);
+                }
+            }
+        }
+
+        //IEnumerator TestRagdoll()
+        //{
+        //    yield return new WaitForSeconds(2f);
+        //    RB.AddForce(Vector3.up * 200f);
+        //    yield return new WaitForSeconds(0.5f);
+        //    TurnOnRagdoll();
+        //}
+
+        public void TurnOnRagdoll()
+        {
+            RB.useGravity = false;
+            RB.velocity = Vector3.zero;
+            gameObject.GetComponent<BoxCollider>().enabled = false;
+            animator.enabled = false;
+            animator.avatar = null;
+            foreach(var c in RagdollLst)
+            {
+                c.isTrigger = false;
+                c.attachedRigidbody.velocity = Vector3.zero;
+            }
+        }
+
+        void InitEdgeSphere()
         {
             var box = GetComponent<BoxCollider>();
             var center = box.bounds.center;
@@ -43,7 +91,19 @@ namespace Platformer_Game
 
             CreateBottomEdgeSphere(back, front, bottom, 4);
             CreateForwardEdgeSphere(bottom, top, front, 8);
+        }
 
+        void FixedUpdate()
+        {
+            if(RB.velocity.y < 0f)
+            {
+                RB.velocity += Vector3.down * GravityMultiplier;
+            }
+
+            if(RB.velocity.y > 0f && !Jump) //松开跳跃键 才会叠加这个向下的速度
+            { 
+                RB.velocity += Vector3.down * PullMultiplier;
+            }
         }
 
         void CreateBottomEdgeSphere(float back, float front, float bottom, int count)

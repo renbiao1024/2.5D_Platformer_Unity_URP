@@ -37,16 +37,18 @@ namespace Platformer_Game
                 return;
             }
 
-            if (characterControl.MoveLeft && !CheckFront())
+            if (characterControl.MoveLeft)
             {
                 characterControl.transform.rotation = Quaternion.Euler(0, -90, 0);
-                characterControl.transform.Translate(Vector3.forward * Speed * speedCurve.Evaluate(stateInfo.normalizedTime) * Time.deltaTime);
+                if (!CheckFront())
+                    characterControl.transform.Translate(Vector3.forward * Speed * speedCurve.Evaluate(stateInfo.normalizedTime) * Time.deltaTime);
             }
 
-            if (characterControl.MoveRight && !CheckFront())
+            if (characterControl.MoveRight)
             {
                 characterControl.transform.rotation = Quaternion.Euler(0, 90, 0);
-                characterControl.transform.Translate(Vector3.forward * Speed * speedCurve.Evaluate(stateInfo.normalizedTime) * Time.deltaTime);
+                if(!CheckFront())
+                    characterControl.transform.Translate(Vector3.forward * Speed * speedCurve.Evaluate(stateInfo.normalizedTime) * Time.deltaTime);
             }
         }
         public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
@@ -64,7 +66,6 @@ namespace Platformer_Game
                     return true;
                 }
             }
-
             return false;
         }
     }
