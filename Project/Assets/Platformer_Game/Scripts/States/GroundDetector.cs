@@ -13,11 +13,11 @@ namespace Platformer_Game
         private CharacterControl characterControl;
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            characterControl = characterState.GetCharacterControl(animator);
         }
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
+            characterControl = characterState.GetCharacterControl(animator);
             if (stateInfo.normalizedTime >= CheckTime)
             {
                 if(IsGrounded())

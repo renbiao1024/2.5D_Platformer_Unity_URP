@@ -10,13 +10,18 @@ namespace Platformer_Game
         CharacterControl control;
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            control = characterState.GetCharacterControl(animator);
             animator.SetBool(TransitionParameter.Jump.ToString(), false);
         }
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            if(control.Jump)
+            control = characterState.GetCharacterControl(animator);
+            if (control.Attack)
+            {
+                animator.SetBool(TransitionParameter.Attack.ToString(), true);
+            }
+
+            if (control.Jump)
             {
                 animator.SetBool(TransitionParameter.Jump.ToString(), true);
             }

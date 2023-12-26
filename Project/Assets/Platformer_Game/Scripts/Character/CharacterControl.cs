@@ -10,6 +10,7 @@ namespace Platformer_Game
         Jump,
         ForceTransition,
         Grounded,
+        Attack,
     }
     public class CharacterControl : MonoBehaviour
     {
@@ -18,6 +19,7 @@ namespace Platformer_Game
         public bool MoveRight;
         public bool MoveLeft;
         public bool Jump;
+        public bool Attack;
         private Rigidbody rb;
 
         public float GravityMultiplier;

@@ -14,13 +14,13 @@ namespace Platformer_Game
         CharacterControl control;
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            control = characterState.GetCharacterControl(animator);
             characterState.GetCharacterControl(animator).GetComponent<Rigidbody>().AddForce(Vector3.up * JumpForce);
             animator.SetBool(TransitionParameter.Grounded.ToString(), false);
         }
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
+            control = characterState.GetCharacterControl(animator);
             control.GravityMultiplier = Gravity.Evaluate(stateInfo.normalizedTime);
             control.PullMultiplier = Pull.Evaluate(stateInfo.normalizedTime);
         }

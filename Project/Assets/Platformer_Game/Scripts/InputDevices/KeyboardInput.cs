@@ -11,23 +11,6 @@ namespace Platformer_Game
         void Update()
         {
             var virtualMgrInst = VirtualInputManager.Instance;
-            if (Input.GetKey(KeyCode.W))
-            {
-                virtualMgrInst.MoveFwd = true;
-            }
-            else
-            {
-                virtualMgrInst.MoveFwd = false;
-            }
-
-            if (Input.GetKey(KeyCode.S))
-            {
-                virtualMgrInst.MoveBwd = true;
-            }
-            else
-            {
-                virtualMgrInst.MoveBwd = false;
-            }
 
             if (Input.GetKey(KeyCode.A))
             {
@@ -54,6 +37,15 @@ namespace Platformer_Game
             else
             {
                 virtualMgrInst.Jump = false;
+            }
+
+            if(Input.GetKey(KeyCode.Mouse0))
+            {
+                virtualMgrInst.Attack = true;
+            }
+            else
+            {
+                virtualMgrInst.Attack= false;
             }
         }
     }

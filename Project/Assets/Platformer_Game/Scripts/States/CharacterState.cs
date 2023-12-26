@@ -11,11 +11,12 @@ namespace Platformer_Game
         public List<StateData> ListAbilityData = new List<StateData>();
 
 
-        public CharacterControl GetCharacterControl(Animator animator)
+        public CharacterControl GetCharacterControl(Animator animator) //when enter a new state, animator might be null, so this should be used in update function.
         {
             if(characterControl == null)
             {
                 characterControl = animator.GetComponentInParent<CharacterControl>();
+                //Debug.LogWarning("characterControl is " + characterControl);
             }
             return characterControl;
         }
@@ -49,5 +50,4 @@ namespace Platformer_Game
             }
         }
     }
-
 }

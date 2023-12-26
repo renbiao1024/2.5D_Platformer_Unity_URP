@@ -14,7 +14,8 @@ namespace Platformer_Game
         }
         void Update()
         {
-            if(VirtualInputManager.Instance.MoveRight)
+            var virtualInputMgrInst = VirtualInputManager.Instance;
+            if (virtualInputMgrInst.MoveRight)
             {
                 characterControl.MoveRight = true;
             }
@@ -23,7 +24,7 @@ namespace Platformer_Game
                 characterControl.MoveRight = false;
             }
 
-            if(VirtualInputManager.Instance.MoveLeft)
+            if(virtualInputMgrInst.MoveLeft)
             {
                 characterControl.MoveLeft = true;
             }
@@ -32,13 +33,22 @@ namespace Platformer_Game
                 characterControl.MoveLeft = false;
             }
 
-            if(VirtualInputManager.Instance.Jump)
+            if(virtualInputMgrInst.Jump)
             {
                 characterControl.Jump = true;
             }
             else
             {
                 characterControl.Jump = false;
+            }
+
+            if(virtualInputMgrInst.Attack)
+            {
+                characterControl.Attack = true;
+            }
+            else
+            {
+                characterControl.Attack = false;
             }
         }
     }

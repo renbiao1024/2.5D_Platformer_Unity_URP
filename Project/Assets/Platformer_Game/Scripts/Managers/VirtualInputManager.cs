@@ -9,9 +9,8 @@ namespace Platformer_Game
     public class VirtualInputManager : Singleton<VirtualInputManager>
     {
         public bool MoveRight;
-        public bool MoveFwd;
-        public bool MoveBwd;
         public bool MoveLeft;
         public bool Jump;
+        public bool Attack;
     }
 }
